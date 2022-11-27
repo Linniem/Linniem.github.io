@@ -50,7 +50,7 @@ $ python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_p
 
 如果使用 `grpclib` 取代官方的 `grpc` ，那麼就不會有上述問題，輸入輸出都有對應型別而非`Unknown`。
 
-{% asset_img use-grpclib.jpg %}
+{% asset_img grpclib.jpg %}
 
 # 相關 issue/pr
 
