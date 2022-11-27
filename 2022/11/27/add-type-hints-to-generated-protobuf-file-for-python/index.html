@@ -31,9 +31,9 @@
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after2.jpg">
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after1.jpg">
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/use-grpclib.jpg">
+<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg">
 <meta property="article:published_time" content="2022-11-27T05:51:16.000Z">
-<meta property="article:modified_time" content="2022-11-27T11:13:29.896Z">
+<meta property="article:modified_time" content="2022-11-27T11:27:34.504Z">
 <meta property="article:author" content="Jason Lin">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="protobuf">
@@ -206,7 +206,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:13:29" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
+      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:27:34" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
     </span>
 
   
@@ -245,7 +245,7 @@
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg" class="">
 
 <p>如果使用 <code>grpclib</code> 取代官方的 <code>grpc</code> ，那麼就不會有上述問題，輸入輸出都有對應型別而非<code>Unknown</code>。</p>
-<img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/use-grpclib.jpg" class="">
+<img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg" class="">
 
 <h1 id="相關-issue-x2F-pr"><a href="#相關-issue-x2F-pr" class="headerlink" title="相關 issue&#x2F;pr"></a>相關 issue&#x2F;pr</h1><p>新增 type hints 的 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/issues/2638">issue</a> 是在 2017年初提出的。</p>
 <p>直到 2022 年 4 月於v3.20.0新增 <code>--pyi_out</code> 參數產生型別檔案 (<a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/issues/2638#issuecomment-1106725624"> 相關 comment </a>)</p>
