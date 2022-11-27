@@ -193,7 +193,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:11:05" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
+      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:13:29" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
     </span>
 
   
@@ -228,7 +228,7 @@
 <p><code>HelloRequest</code> 也會告訴你初始化需要帶什麼欄位了</p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after1.jpg" class="">
 
-<h1 id="官方-grpc-的限制"><a href="#官方-grpc-的限制" class="headerlink" title="官方 grpc 的限制"></a>官方 grpc 的限制</h1><p>雖然 import 進來的 protobuf class 有型別了，但 grpc stub 的 service 的卻還是 <code>Unknown</code>，導致編輯器沒辦法顯示 service 的 input 需要什麼型別，output 也是 <code>Unknown</code>，這部分還是麻煩一點。</p>
+<h1 id="官方-grpc-的限制"><a href="#官方-grpc-的限制" class="headerlink" title="官方 grpc 的限制"></a>官方 grpc 的限制</h1><p>雖然 import 進來的 protobuf class 有型別了，但 grpc stub 的 service 卻還是 <code>Unknown</code>，導致編輯器沒辦法顯示 service 的 input 需要什麼型別，output 也是 <code>Unknown</code>，這部分還是麻煩一點。</p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg" class="">
 
 <p>如果使用 <code>grpclib</code> 取代官方的 <code>grpc</code> ，那麼就不會有上述問題，輸入輸出都有對應型別而非<code>Unknown</code>。</p>
