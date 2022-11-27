@@ -44,7 +44,7 @@ $ python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_p
 
 # 官方 grpc 的限制
 
-雖然 import 進來的 protobuf class 有型別了，但 grpc stub 的 service 的卻還是 `Unknown`，導致編輯器沒辦法顯示 service 的 input 需要什麼型別，output 也是 `Unknown`，這部分還是麻煩一點。
+雖然 import 進來的 protobuf class 有型別了，但 grpc stub 的 service 卻還是 `Unknown`，導致編輯器沒辦法顯示 service 的 input 需要什麼型別，output 也是 `Unknown`，這部分還是麻煩一點。
 
 {% asset_img still-no-type.jpg %}
 
