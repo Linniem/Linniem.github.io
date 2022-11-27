@@ -1,5 +1,5 @@
 ---
-title: "[python] 為 protobuf 產生的檔案加入型別定義檔"
+title: "[python] 為 protoc 產生的檔案加入型別定義檔"
 date: 2022-11-27 13:51:16
 tags: 
     - python
@@ -66,8 +66,8 @@ $ python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_p
 
 # 補充
 
-如果團隊將 protobuf 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 檔案不會包含在已經 install 的 package 內，導致 type hints 沒有效果。
+如果團隊將 protoc 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 檔案不會包含在已經 install 的 package 內，導致 type hints 沒有效果。
 
-pyi 檔案是不影響程式的功能的，要視為 data file。
+> pyi 檔案是不影響程式的功能的，要視為 data file。
 
 將 data file 也包含進 package 的方式請參考  [setuptools 的說明](https://setuptools.pypa.io/en/latest/userguide/datafiles.html)
