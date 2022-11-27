@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產出來的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
+    <meta name="description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產生的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[python] 為 protobuf 產生的檔案加入型別定義檔">
 <meta property="og:url" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/index.html">
 <meta property="og:site_name" content="Linniem&#39;s Blog">
-<meta property="og:description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產出來的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
+<meta property="og:description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產生的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/no-type-hints.jpg">
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after2.jpg">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg">
 <meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg">
 <meta property="article:published_time" content="2022-11-27T05:51:16.000Z">
-<meta property="article:modified_time" content="2022-11-27T11:27:34.504Z">
+<meta property="article:modified_time" content="2022-11-27T11:39:45.044Z">
 <meta property="article:author" content="Jason Lin">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="protobuf">
@@ -206,7 +206,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:27:34" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
+      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:39:45" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
     </span>
 
   
@@ -220,7 +220,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>先說方法，使用版本至少<code>3.20.0</code>的 protoc 產生檔案時帶參數 <code>--pyi_out</code> 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。</p>
-<h1 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h1><p>工作上要使用到 grpc，卻發現 protoc 預設產出來的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些 class 可用，連 object 都無法帶出對應欄位，開發體驗非常糟糕。</p>
+<h1 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h1><p>工作上要使用到 grpc，卻發現 protoc 預設產生的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些 class 可用，連 object 都無法帶出對應欄位，開發體驗非常糟糕。</p>
 <blockquote>
 <p>如果你是在 <code>2022/11/04</code> 之後照著 <a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/python/quickstart/">grpc 的官方教學</a>來使用 protobuf 的話應該就不會遇到這個問題<br><a target="_blank" rel="noopener" href="https://github.com/grpc/grpc.io/pull/1068">官方文件更新的 pr</a></p>
 </blockquote>
@@ -230,29 +230,29 @@
 <p>上圖是官方的範例 然後是還沒有型別定義檔的情況</p>
 </blockquote>
 <p>如果在 vscode 中開啟 type checking 會警告說 <code>helloworld_pb2</code> 沒有 <code>HelloRequest</code> 這個 member，自然也不知道初始化要帶哪些值進去，<code>helloworld_pb2</code> 也無法自動提示有哪些 class 可用。</p>
-<p>變成說在開發時要不斷去跟 proto 檔比對，還有錯字的風險。</p>
-<h1 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h1><p>確保 protobuf 使用的 protoc 版本至少要 <code>3.20.0</code> 以上</p>
+<p>開發時要不斷去跟 proto 檔比對型別，還有錯字的風險。</p>
+<h1 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h1><p>確保使用的 protoc 版本至少要 <code>3.20.0</code> 以上</p>
 <p>在呼叫 protoc 的指令加上 <code>--pyi_out</code> 參數 這裡直接引用<a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/python/quickstart/#generate-grpc-code">官方的教學</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_python_out=. ../../protos/helloworld.proto</span><br></pre></td></tr></table></figure>
 
 <p>然後就可以看到編輯器提示 <code>helloworld_pb2</code> 有 <code>HelloRequest</code> 跟 <code>HelloReply</code></p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after2.jpg" class="">
 
-<p><code>HelloRequest</code> 也會告訴你初始化需要帶什麼欄位了</p>
+<p><code>HelloRequest</code> 也會告訴你初始化需要帶什麼值了</p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after1.jpg" class="">
 
 <h1 id="官方-grpc-的限制"><a href="#官方-grpc-的限制" class="headerlink" title="官方 grpc 的限制"></a>官方 grpc 的限制</h1><p>雖然 import 進來的 protobuf class 有型別了，但 grpc stub 的 service 卻還是 <code>Unknown</code>，導致編輯器沒辦法顯示 service 的 input 需要什麼型別，output 也是 <code>Unknown</code>，這部分還是麻煩一點。</p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg" class="">
 
-<p>如果使用 <code>grpclib</code> 取代官方的 <code>grpc</code> ，那麼就不會有上述問題，輸入輸出都有對應型別而非<code>Unknown</code>。</p>
+<p>如果使用 <code>grpclib</code> 取代官方的 <code>grpc</code> ，那麼就不會有上述問題，輸入輸出都有對應的型別而非<code>Unknown</code>。</p>
 <img src="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg" class="">
 
 <h1 id="相關-issue-x2F-pr"><a href="#相關-issue-x2F-pr" class="headerlink" title="相關 issue&#x2F;pr"></a>相關 issue&#x2F;pr</h1><p>新增 type hints 的 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/issues/2638">issue</a> 是在 2017年初提出的。</p>
-<p>直到 2022 年 4 月於v3.20.0新增 <code>--pyi_out</code> 參數產生型別檔案 (<a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/issues/2638#issuecomment-1106725624"> 相關 comment </a>)</p>
-<p>到 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3">release</a> 可用時已經是 2022&#x2F;09&#x2F;30 了 </p>
+<p>直到 2022 年 4 月於 v3.20.0 新增 <code>--pyi_out</code> 參數產生型別檔案 (<a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/issues/2638#issuecomment-1106725624"> 相關 comment </a>)</p>
+<p>到可以用這個參數的 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3">release</a> 已經是 2022&#x2F;09&#x2F;30 的事了 </p>
 <p><del>這些人開發時一直看 proto 都沒問題 太強了</del></p>
 <p>這個 issue 實在是等了很久</p>
-<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>如果團隊將 protobuf 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 不會包含在 package 內，導致 type hints 沒有效果。</p>
+<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>如果團隊將 protobuf 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 檔案不會包含在已經 install 的 package 內，導致 type hints 沒有效果。</p>
 <p>pyi 檔案是不影響程式的功能的，要視為 data file。</p>
 <p>將 data file 也包含進 package 的方式請參考  <a target="_blank" rel="noopener" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">setuptools 的說明</a></p>
 
