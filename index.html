@@ -181,7 +181,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/" class="post-title-link" itemprop="url">[python] 為 protobuf 產生的檔案加入型別定義檔</a>
+          <a href="/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/" class="post-title-link" itemprop="url">[python] 為 protoc 產生的檔案加入型別定義檔</a>
         </h2>
 
         <div class="post-meta-container">
@@ -193,7 +193,7 @@
       <span class="post-meta-item-text">發表於</span>
       
 
-      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：19:39:45" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
+      <time title="創建時間：2022-11-27 13:51:16 / 修改時間：20:03:27" itemprop="dateCreated datePublished" datetime="2022-11-27T13:51:16+08:00">2022-11-27</time>
     </span>
 
   
@@ -239,8 +239,10 @@
 <p>到可以用這個參數的 <a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3">release</a> 已經是 2022&#x2F;09&#x2F;30 的事了 </p>
 <p><del>這些人開發時一直看 proto 都沒問題 太強了</del></p>
 <p>這個 issue 實在是等了很久</p>
-<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>如果團隊將 protobuf 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 檔案不會包含在已經 install 的 package 內，導致 type hints 沒有效果。</p>
+<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><p>如果團隊將 protoc 輸出的檔案放到獨立的 repo 變成 package 供其他專案 import，會發現 pyi 檔案不會包含在已經 install 的 package 內，導致 type hints 沒有效果。</p>
+<blockquote>
 <p>pyi 檔案是不影響程式的功能的，要視為 data file。</p>
+</blockquote>
 <p>將 data file 也包含進 package 的方式請參考  <a target="_blank" rel="noopener" href="https://setuptools.pypa.io/en/latest/userguide/datafiles.html">setuptools 的說明</a></p>
 
       
