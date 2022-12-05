@@ -9,5 +9,3 @@ jobs:
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           github-token: ${{ secrets.mytoken }}
-          config: .github/workflows/auto-merge.yml
-          target: minor
