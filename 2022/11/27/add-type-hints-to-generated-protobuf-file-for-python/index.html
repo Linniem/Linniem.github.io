@@ -18,35 +18,35 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"linniem.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產生的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[python] 為 protoc 產生的檔案加入型別定義檔">
-<meta property="og:url" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/index.html">
+<meta property="og:url" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/index.html">
 <meta property="og:site_name" content="Linniem&#39;s Blog">
 <meta property="og:description" content="先說方法，使用版本至少3.20.0的 protoc 產生檔案時帶參數 --pyi_out 可以在指定路徑(跟產生出的pb.py檔放一起)產生對應的 pyi 檔案供編輯器讀取，這樣開發時就可以由編輯器帶出對應的 class 以及 object 的 fields。 問題工作上要使用到 grpc，卻發現 protoc 預設產生的檔案沒有辦法讓編輯器讀取出型別，除了在 import 時無法自動帶出有哪些">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/no-type-hints.jpg">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after2.jpg">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after1.jpg">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg">
-<meta property="og:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg">
+<meta property="og:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/no-type-hints.jpg">
+<meta property="og:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after2.jpg">
+<meta property="og:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/after1.jpg">
+<meta property="og:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/still-no-type.jpg">
+<meta property="og:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/grpclib.jpg">
 <meta property="article:published_time" content="2022-11-27T05:51:16.000Z">
-<meta property="article:modified_time" content="2023-03-27T13:27:57.212Z">
+<meta property="article:modified_time" content="2023-03-27T14:02:21.478Z">
 <meta property="article:author" content="Jason Lin">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="protobuf">
 <meta property="article:tag" content="grpc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/no-type-hints.jpg">
+<meta name="twitter:image" content="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/no-type-hints.jpg">
 
 
-<link rel="canonical" href="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/">
+<link rel="canonical" href="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/","path":"2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/","title":"[python] 為 protoc 產生的檔案加入型別定義檔"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/","path":"2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/","title":"[python] 為 protoc 產生的檔案加入型別定義檔"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>[python] 為 protoc 產生的檔案加入型別定義檔 | Linniem's Blog</title>
@@ -160,7 +160,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/">
+    <link itemprop="mainEntityOfPage" href="https://linniem.github.io/2022/11/27/add-type-hints-to-generated-protobuf-file-for-python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -196,7 +196,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-27 21:27:57" itemprop="dateModified" datetime="2023-03-27T21:27:57+08:00">2023-03-27</time>
+      <time title="修改時間：2023-03-27 22:02:21" itemprop="dateModified" datetime="2023-03-27T22:02:21+08:00">2023-03-27</time>
     </span>
 
   
